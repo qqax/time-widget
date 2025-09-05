@@ -1,15 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./styles/main.scss";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './styles/main.scss'; // если есть глобальные стили
 
-const rootElement = document.getElementById('root');
-
-if (!rootElement) {
-    throw new Error("Root container not found. Make sure there is a div with id='root' in your HTML.");
+const container = document.getElementById('root');
+if (!container) {
+    throw new Error('Root element not found');
 }
 
-const root = ReactDOM.createRoot(rootElement);
+const root = createRoot(container);
 root.render(
     <React.StrictMode>
         <App />
