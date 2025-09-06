@@ -1,93 +1,94 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './CircleButtons.module.scss';
-import gsap from "gsap";
+import gsap from 'gsap';
 
 const buttonData = [
-    {label: "First"},
-    {label: "Second"},
-    {label: "Third"},
-    {label: "Fourth"},
-    {label: "Fifth"},
-    {label: "Sixth"},
-]
+  { label: 'First' },
+  { label: 'Second' },
+  { label: 'Third' },
+  { label: 'Fourth' },
+  { label: 'Fifth' },
+  { label: 'Sixth' },
+];
 
 export default function CircleButtons() {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-    const buttonRefs = useRef<HTMLButtonElement[]>([]);
-    const angleRef = useRef( 0 );
-    const count = 6;
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const buttonRefs = useRef<HTMLButtonElement[]>([]);
+  const count = buttonData.length;
+  const initialAngle = -Math.PI / 3;
+  const anglePerButton = useMemo(() => (Math.PI * 2) / count, [count]);
 
-    const positionButtons = useCallback(
-        (angleShift = 0) => {
-            const container = containerRef.current;
-            if (!container) return;
+  const angleOffsetRef = useRef(initialAngle);
 
-            const {width, height} = container.getBoundingClientRect();
-            // const width = rect.width;
-            // const height = rect.height;
-            //
-            // const centerX = width / 2;
-            const centerY = height / 2;
-            const centerX = 0;
-            // const centerY = 0;
-            const radius = Math.min(width, height) / 2 - 40;
+  const positionButtons = useCallback(
+    (angleShift = initialAngle) => {
+      const container = containerRef.current;
+      if (!container) return;
 
-            buttonRefs.current.forEach((btn, i) => {
-                if (!btn) return;
+      const { width, height } = container.getBoundingClientRect();
+      const centerY = height / 2;
+      const radius = Math.min(width, height) / 2;
 
-                const angle = (i / count) * Math.PI * 2 + angleShift;
-                const x = centerX + radius * Math.cos(angle);
-                const y = centerY + radius * Math.sin(angle);
+      buttonRefs.current.forEach((btn, i) => {
+        if (!btn) return;
 
-                gsap.set(btn, {
-                    x,
-                    y,
-                    // rotation: (angle * 180) / Math.PI + 90,
-                    transformOrigin: 'center center',
-                });
-            });
-        },
-        [count]
-    );
+        const angle = (i / count) * Math.PI * 2 + angleShift;
+        const x = radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
 
-    const rotateToIndex = (targetIndex: number) => {
-        const anglePerButton = (Math.PI * 2) / count;
-
-        const targetAngle = -anglePerButton * targetIndex + Math.PI / 6; // чуть правее верха
-
-        gsap.to(angleRef, {
-            current: targetAngle,
-            duration: 1,
-            ease: 'circular.inOut',
-            onUpdate: () => {
-                positionButtons(angleRef.current);
-            },
+        gsap.set(btn, {
+          x,
+          y,
+          transformOrigin: 'center center',
         });
+      });
+    },
+    [count],
+  );
+
+  const rotateToIndex = useCallback(
+    (targetIndex: number) => {
+      const targetAngle = -anglePerButton * targetIndex + initialAngle;
+
+      gsap.to(angleOffsetRef, {
+        current: targetAngle,
+        duration: 1,
+        ease: 'circular.inOut',
+        onUpdate: () => {
+          positionButtons(angleOffsetRef.current);
+        },
+      });
+    },
+    [anglePerButton],
+  );
+
+  useEffect(() => {
+    positionButtons();
+    const handleResize = () => positionButtons();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
     };
+  }, [positionButtons]);
 
-    useEffect(() => {
-        positionButtons();
-        window.addEventListener('resize', () => positionButtons());
-
-        return () => {
-            window.removeEventListener('resize', () => positionButtons());
-        };
-    }, [positionButtons]);
-
-    return (
-            <div className={styles.circleContainer} ref={containerRef}>
-                {buttonData.map((data, i) => (
-                    <button
-                        key={data.label}
-                        ref={(el) => {
-                            if (el) buttonRefs.current[i] = el;
-                        }}
-                        onClick={() => rotateToIndex(i)}
-                        className={styles.circleBtn}
-                    >
-                        {i + 1}
-                    </button>
-                ))}
-            </div>
-    );
-};
+  return (
+    <div className={styles.circleWrapper}>
+      <div className={styles.circleContainer} ref={containerRef}>
+        {buttonData.map((data, i) => (
+          <button
+            key={data.label}
+            ref={(el) => {
+              if (el) buttonRefs.current[i] = el;
+            }}
+            onClick={() => rotateToIndex(i)}
+            className={styles.circleBtn}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
