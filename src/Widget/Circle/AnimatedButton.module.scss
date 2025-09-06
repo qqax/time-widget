@@ -1,0 +1,16 @@
+@use '../../styles/variables' as palette;
+
+.btn {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: palette.$color-primary;
+  border: none;
+  cursor: pointer;
+  //overflow: hidden;
+  padding: 0;
+  transition: background-color 0.3s;
+  position: absolute;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+}

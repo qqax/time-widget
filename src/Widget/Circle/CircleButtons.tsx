@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import styles from './CircleButtons.module.scss';
 import gsap from 'gsap';
+import AnimatedButton from './AnimatedButton';
 
 const buttonData = [
-  { label: 'First' },
+  { id: 12, label: 'First' },
   { label: 'Second' },
   { label: 'Third' },
   { label: 'Fourth' },
@@ -17,8 +18,18 @@ export default function CircleButtons() {
   const count = buttonData.length;
   const initialAngle = -Math.PI / 3;
   const anglePerButton = useMemo(() => (Math.PI * 2) / count, [count]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const angleOffsetRef = useRef(initialAngle);
+
+  const idPrefix = useId();
+  const buttons = useMemo(
+    () =>
+      buttonData.map((data, i) => {
+        return { ...data, key: data.id || `${idPrefix}-${i}` };
+      }),
+    [buttonData, selectedIndex],
+  );
 
   const positionButtons = useCallback(
     (angleShift = initialAngle) => {
@@ -48,6 +59,8 @@ export default function CircleButtons() {
 
   const rotateToIndex = useCallback(
     (targetIndex: number) => {
+      setSelectedIndex(targetIndex);
+
       const targetAngle = -anglePerButton * targetIndex + initialAngle;
 
       gsap.to(angleOffsetRef, {
@@ -59,7 +72,7 @@ export default function CircleButtons() {
         },
       });
     },
-    [anglePerButton],
+    [anglePerButton, buttons.length, initialAngle, positionButtons],
   );
 
   useEffect(() => {
@@ -76,17 +89,17 @@ export default function CircleButtons() {
   return (
     <div className={styles.circleWrapper}>
       <div className={styles.circleContainer} ref={containerRef}>
-        {buttonData.map((data, i) => (
-          <button
-            key={data.label}
+        {buttons.map(({ key, label }, i) => (
+          <AnimatedButton
+            key={key}
             ref={(el) => {
               if (el) buttonRefs.current[i] = el;
             }}
             onClick={() => rotateToIndex(i)}
-            className={styles.circleBtn}
-          >
-            {i + 1}
-          </button>
+            label={label}
+            number={i + 1}
+            selected={selectedIndex === i}
+          ></AnimatedButton>
         ))}
       </div>
     </div>

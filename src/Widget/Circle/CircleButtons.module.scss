@@ -7,14 +7,15 @@
   height: 100%;
   padding: 60px;
   box-sizing: border-box;
+  margin: 20px 200px;
 }
 
 .circle-container {
   position: relative;
   margin: auto;
   width: 100%;
-  max-width: 100vmin; /* ограничивает по меньшей из сторон */
-  aspect-ratio: 1 / 1; /* сохраняет форму круга */
+  max-width: 100vmin;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: 1px solid palette.$color-border;
 }
