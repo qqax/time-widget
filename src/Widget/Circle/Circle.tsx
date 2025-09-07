@@ -92,8 +92,8 @@ export default function Circle({
 
   return (
     <div className={styles.circleWrapper}>
-      <div className={crossLineHorizontal} />
       <div className={styles.circleContainer} ref={containerRef}>
+        <div className={crossLineHorizontal} />
         <YearsRange firstYear={firstYear} lastYear={lastYear} />
 
         {buttonsData.map(({ id, label }, i) => (

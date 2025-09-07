@@ -22,7 +22,7 @@ export default function Pagination({
   return (
     <div className={styles.container}>
       <div className={styles.pagination}>
-        {selectedCategory}/{totalCategories}
+        {String(selectedCategory).padStart(2, '0')}/{String(totalCategories).padStart(2, '0')}
       </div>
       <div className={styles.btnContainer}>
         <button
