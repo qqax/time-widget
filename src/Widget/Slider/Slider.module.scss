@@ -4,15 +4,41 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 135px;
   margin-bottom: 5rem;
   padding: 0 6rem;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.fade::before,
+.fade::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0.5rem;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.fade::before {
+  left: 0;
+  background: linear-gradient(to right, var(--color-background), transparent);
+}
+
+.fade::after {
+  right: 0;
+  background: linear-gradient(to left, var(--color-background), transparent);
 }
 
 .slide {
   text-align: left;
-  min-width: 20rem;
-  max-width: 25rem;
+  height: 135px;
+
+  min-width: 320px;
+  max-width: 400px;
+  width: max-content;
 }
 
 .year {
@@ -20,13 +46,23 @@
 
   font-size: 1.5rem;
   color: var(--color-secondary);
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 
 .article {
   font-size: 1.25rem;
-  line-height: 1.5;
-  color: var(--color-primary);
+}
+
+.article::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1rem; /* высота зоны размытия */
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #f0f0f0 90%);
 }
 
 .swiper-button-prev,

@@ -8,9 +8,10 @@ import 'swiper/scss/pagination';
 
 import styles from './Slider.module.scss';
 import { TimeWidgetItem } from '../types';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import gsap from 'gsap';
+import GrowDiv from './GrowDiv';
 
 type SliderProps = {
   items: TimeWidgetItem[];
@@ -89,11 +90,14 @@ export default function Slider({ items }: SliderProps) {
         grabCursor={true}
         resistance={true}
         resistanceRatio={0.85}
+        className={styles.fade}
       >
         {sliderItems.map(({ year, article }, idx) => (
           <SwiperSlide key={idx} className={styles.slide}>
-            <div className={styles.year}>{year}</div>
-            <div className={styles.article}>{article}</div>
+            <h3 className={styles.year}>{year}</h3>
+            <GrowDiv className={styles.article} maxHeight={90} startWidth={320} maxWidth={400}>
+              {article}
+            </GrowDiv>
           </SwiperSlide>
         ))}
       </Swiper>
