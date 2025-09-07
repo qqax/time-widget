@@ -1,4 +1,4 @@
-import { TimeWidgetData } from './models';
+import { TimeWidgetData } from './types';
 
 export const mockTimeWidgetData: TimeWidgetData = [
   {

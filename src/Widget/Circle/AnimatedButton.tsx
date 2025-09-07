@@ -29,6 +29,9 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const colorPrimary = getComputedStyle(document.documentElement)
       .getPropertyValue('--color-primary')
       .trim();
+    const backgroundColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--color-background')
+      .trim();
 
     useEffect(() => {
       if (selected) {
@@ -42,7 +45,7 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           fontSize: 0.2,
           lineHeight: 1.5,
           color: `${colorPrimary}`,
-          backgroundColor: '#F4F5F9',
+          backgroundColor: `${backgroundColor}`,
           ease: 'power2.out',
         });
 

@@ -6,10 +6,11 @@
   font-family: 'PT Sans', sans-serif;
 
   position: relative;
-  background: #E5E5E5;
+  background: var(--color-background);
   z-index: 1;
   border: 1px solid var(--color-border);
   color: var(--color-primary);
+  height: 100%;
 }
 
 .title {

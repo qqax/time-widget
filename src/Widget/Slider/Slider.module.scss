@@ -1,0 +1,27 @@
+.sliderWrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.slide {
+  max-width: fit-content;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.year {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary, #303E58);
+  margin-bottom: 0.5rem;
+}
+
+.article {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--color-text, #333);
+}

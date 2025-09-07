@@ -3,10 +3,16 @@ import styles from './Circle.module.scss';
 import mainStyles from '../TimeWidget.module.scss';
 import gsap from 'gsap';
 import AnimatedButton from './AnimatedButton';
-import Years from './Years';
-import { CircleProps } from '../models';
+import YearsRange from './YearsRange';
+import { Button, Years } from '../types';
 
 const { crossLineHorizontal } = mainStyles;
+
+type CircleProps = {
+  buttonsData: Button[];
+  selectedIndex: number;
+  setSelectedIndex: React.Dispatch<React.SetStateAction<number>>;
+} & Years;
 
 export default function Circle({
   buttonsData,
@@ -81,11 +87,10 @@ export default function Circle({
   return (
     <>
       <div className={styles.circleWrapper}>
-        <div className={styles.crossWrapper}>
-          <div className={crossLineHorizontal} />
-        </div>
-        <Years firstYear={firstYear} lastYear={lastYear} />
+        <div className={crossLineHorizontal} />
         <div className={styles.circleContainer} ref={containerRef}>
+          <YearsRange firstYear={firstYear} lastYear={lastYear} />
+
           {buttonsData.map(({ id, label }, i) => (
             <AnimatedButton
               key={id}

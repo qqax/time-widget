@@ -1,7 +1,6 @@
-$app-color: #4a90e2;
-
 html, body, #root {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -13,10 +12,11 @@ body {
 
 .app {
   text-align: center;
+  height: 100%;
 }
 
 .title {
-  color: $app-color;
+  color: #4a90e2;;
   font-size: 2rem;
   margin-bottom: 2rem;
 }

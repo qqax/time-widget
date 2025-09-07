@@ -2,7 +2,11 @@ import styles from './TimeWidget.module.scss';
 import Circle from './Circle/Circle';
 import Slider from './Slider/Slider';
 import { useMemo, useState } from 'react';
-import { Button, TimeWidgetProps } from './models';
+import { Button, TimeWidgetData } from './types';
+
+type TimeWidgetProps = {
+  data: TimeWidgetData;
+};
 
 export default function TimeWidget({ data }: TimeWidgetProps) {
   if (!(data && data.length)) return null;
@@ -38,7 +42,7 @@ export default function TimeWidget({ data }: TimeWidgetProps) {
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex}
       />
-      <Slider />
+      <Slider items={sortedItems} />
     </section>
   );
 }

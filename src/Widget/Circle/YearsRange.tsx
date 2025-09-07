@@ -1,9 +1,11 @@
 import styles from './Years.module.scss';
-import { YearsProps } from '../models';
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import type { Years } from '../types';
 
-export default function Years({ firstYear, lastYear }: YearsProps) {
+type YearsProps = Years;
+
+export default function YearsRange({ firstYear, lastYear }: YearsProps) {
   const firstRef = useRef<HTMLSpanElement>(null);
   const lastRef = useRef<HTMLSpanElement>(null);
 
