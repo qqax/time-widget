@@ -1,0 +1,21 @@
+@use '../../styles/variables';
+
+.circle-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 80px 200px;
+  box-sizing: border-box;
+}
+
+.circle-container {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  max-width: 100vmin;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+}

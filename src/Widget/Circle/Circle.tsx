@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
-import styles from './CircleButtons.module.scss';
+import styles from './Circle.module.scss';
+import mainStyles from '../TimeWidget.module.scss';
+
+const { crossLineHorizontal } = mainStyles;
+
 import gsap from 'gsap';
 import AnimatedButton from './AnimatedButton';
+import Years from './Years';
 
 const buttonData = [
   { id: 12, label: 'First' },
@@ -12,7 +17,7 @@ const buttonData = [
   { label: 'Sixth' },
 ];
 
-export default function CircleButtons() {
+export default function Circle() {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<HTMLButtonElement[]>([]);
   const count = buttonData.length;
@@ -87,21 +92,27 @@ export default function CircleButtons() {
   }, [positionButtons]);
 
   return (
-    <div className={styles.circleWrapper}>
-      <div className={styles.circleContainer} ref={containerRef}>
-        {buttons.map(({ key, label }, i) => (
-          <AnimatedButton
-            key={key}
-            ref={(el) => {
-              if (el) buttonRefs.current[i] = el;
-            }}
-            onClick={() => rotateToIndex(i)}
-            label={label}
-            number={i + 1}
-            selected={selectedIndex === i}
-          ></AnimatedButton>
-        ))}
+    <>
+      <div className={styles.circleWrapper}>
+        <div className={styles.crossWrapper}>
+          <div className={crossLineHorizontal} />
+        </div>
+        <Years />
+        <div className={styles.circleContainer} ref={containerRef}>
+          {buttons.map(({ key, label }, i) => (
+            <AnimatedButton
+              key={key}
+              ref={(el) => {
+                if (el) buttonRefs.current[i] = el;
+              }}
+              onClick={() => rotateToIndex(i)}
+              label={label}
+              number={i + 1}
+              selected={selectedIndex === i}
+            ></AnimatedButton>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

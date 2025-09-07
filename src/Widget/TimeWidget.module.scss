@@ -1,4 +1,4 @@
-@use '../styles/variables' as palette;
+@use '../styles/variables';
 
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 
@@ -6,19 +6,19 @@
   font-family: 'PT Sans', sans-serif;
 
   position: relative;
-  background: white;
+  background: #E5E5E5;
   z-index: 1;
-  border: 1px solid palette.$color-border;
-  color: palette.$color-primary;
+  border: 1px solid var(--color-border);
+  color: var(--color-primary);
 }
 
 .title {
   position: absolute;
   z-index: 10;
   text-align: left;
-  font-size: 56px;
-  font-weight: 700;
-  padding-left: 30px;
+  font-size: 3.5rem;
+  font-weight: bold;
+  padding-left: 1.625em;
 }
 
 .title::before {
@@ -28,38 +28,32 @@
   left: 0;
   width: 5px;
   height: 100%;
-  background: linear-gradient(0deg, palette.$color-right-date, palette.$color-primary);
+  background: linear-gradient(0deg, var(--color-right-year), var(--color-primary));
 }
 
-.cross {
+@mixin crossLineBase {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  inset: 0;
+  background-color: var(--color-border);
   pointer-events: none;
-  display: block;
   z-index: 0;
+}
 
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    background-color: palette.$color-border;
-  }
+.crossLineVertical {
+  @include crossLineBase;
 
-  &::before {
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    transform: translateY(-50%);
-  }
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+}
 
-  &::after {
-    top: 0;
-    left: 50%;
-    width: 1px;
-    height: 100%;
-    transform: translateX(-50%);
-  }
+.crossLineHorizontal {
+  @include crossLineBase;
+
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
 }

@@ -1,16 +1,30 @@
-@use '../../styles/variables' as palette;
+@use '../../styles/variables';
 
 .btn {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: palette.$color-primary;
+  background-color: var(--color-primary);
   border: none;
   cursor: pointer;
-  //overflow: hidden;
   padding: 0;
   transition: background-color 0.3s;
   position: absolute;
-  font-size: 16px;
+  font-size: 1rem;
   transform: translate(-50%, -50%);
+}
+
+.number {
+  font-size: 1.25rem;
+  pointer-events: none;
+  text-align: center;
+}
+
+.label {
+  position: absolute;
+  margin-left: 2em;
+  font-size: 1.25rem;
+  font-weight: bold;
+  pointer-events: none;
+  white-space: nowrap;
 }

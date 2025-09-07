@@ -29,9 +29,6 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const colorPrimary = getComputedStyle(document.documentElement)
       .getPropertyValue('--color-primary')
       .trim();
-    const colorBorder = getComputedStyle(document.documentElement)
-      .getPropertyValue('--color-border')
-      .trim();
 
     useEffect(() => {
       if (selected) {
@@ -40,7 +37,7 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           height: 56,
           duration: 0.2,
           borderRadius: '50%',
-          border: `1px solid ${colorBorder}`,
+          border: `1px solid rgba(48, 62, 88, 0.5)`,
           fontWeight: 'normal',
           fontSize: 0.2,
           lineHeight: 1.5,
@@ -56,7 +53,6 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         });
       } else {
         if (labelRef.current) {
-          // Анимация исчезновения label
           gsap.to(labelRef.current, {
             opacity: 0,
             scale: 0.5,
@@ -99,8 +95,8 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
       if (showLabel && labelRef.current) {
         gsap.fromTo(
           labelRef.current,
-          { opacity: 0, scale: 0.5 },
-          { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' },
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6, ease: 'power2.out' },
         );
       }
     }, [showLabel]);
@@ -118,32 +114,12 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     return (
       <button ref={combinedRef} onClick={onClick} className={styles.btn} {...rest}>
         {showNumber && (
-          <span
-            ref={numberRef}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: 24,
-              pointerEvents: 'none',
-            }}
-          >
+          <span ref={numberRef} className={styles.number}>
             {number}
           </span>
         )}
         {showLabel && (
-          <span
-            ref={labelRef}
-            style={{
-              position: 'absolute',
-              marginLeft: 50,
-              transform: 'translate(0%, -50%)',
-              fontSize: 24,
-              fontWeight: 'bold',
-              pointerEvents: 'none',
-            }}
-          >
+          <span ref={labelRef} className={styles.label}>
             {label}
           </span>
         )}
