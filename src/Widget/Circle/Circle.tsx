@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './Circle.module.scss';
 import mainStyles from '../TimeWidget.module.scss';
 import gsap from 'gsap';
-import AnimatedButton from './AnimatedButton';
-import YearsRange from './YearsRange';
+import AnimatedButton from './components/AnimatedButton';
+import YearsRange from './components/YearsRange';
 import { Button, Years } from '../types';
+import Pagination from './components/Pagination';
 
 const { crossLineHorizontal } = mainStyles;
 
@@ -35,6 +36,7 @@ export default function Circle({
       if (!container) return;
 
       const { width, height } = container.getBoundingClientRect();
+      const centerX = width / 2;
       const centerY = height / 2;
       const radius = Math.min(width, height) / 2;
 
@@ -42,7 +44,7 @@ export default function Circle({
         if (!btn) return;
 
         const angle = (i / count) * Math.PI * 2 + angleShift;
-        const x = radius * Math.cos(angle);
+        const x = centerX + radius * Math.cos(angle);
         const y = centerY + radius * Math.sin(angle);
 
         gsap.set(btn, {
@@ -84,27 +86,34 @@ export default function Circle({
     };
   }, [positionButtons]);
 
-  return (
-    <>
-      <div className={styles.circleWrapper}>
-        <div className={crossLineHorizontal} />
-        <div className={styles.circleContainer} ref={containerRef}>
-          <YearsRange firstYear={firstYear} lastYear={lastYear} />
+  useEffect(() => {
+    rotateToIndex(selectedIndex);
+  }, [selectedIndex]);
 
-          {buttonsData.map(({ id, label }, i) => (
-            <AnimatedButton
-              key={id}
-              ref={(el) => {
-                if (el) buttonRefs.current[i] = el;
-              }}
-              onClick={() => rotateToIndex(i)}
-              label={label}
-              number={i + 1}
-              selected={selectedIndex === i}
-            ></AnimatedButton>
-          ))}
-        </div>
+  return (
+    <div className={styles.circleWrapper}>
+      <div className={crossLineHorizontal} />
+      <div className={styles.circleContainer} ref={containerRef}>
+        <YearsRange firstYear={firstYear} lastYear={lastYear} />
+
+        {buttonsData.map(({ id, label }, i) => (
+          <AnimatedButton
+            key={id}
+            ref={(el) => {
+              if (el) buttonRefs.current[i] = el;
+            }}
+            onClick={() => setSelectedIndex(i)}
+            label={label}
+            number={i + 1}
+            selected={selectedIndex === i}
+          ></AnimatedButton>
+        ))}
       </div>
-    </>
+      <Pagination
+        totalCategories={buttonsData.length}
+        selectedCategory={selectedIndex + 1}
+        setSelectedCategory={setSelectedIndex}
+      />
+    </div>
   );
 }

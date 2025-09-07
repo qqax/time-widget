@@ -1,7 +1,7 @@
 import styles from './Years.module.scss';
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import type { Years } from '../types';
+import type { Years } from '../../types';
 
 type YearsProps = Years;
 

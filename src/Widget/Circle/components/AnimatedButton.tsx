@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import styles from './AnimatedButton.module.scss';
 
@@ -20,11 +20,12 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
         ref.current = node;
       }
     };
-
+    const buttonRepresentationRef = useRef<HTMLDivElement>(null);
     const numberRef = useRef<HTMLSpanElement>(null);
     const labelRef = useRef<HTMLSpanElement>(null);
     const [showLabel, setShowLabel] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
+    const [mouseOver, setMouseOver] = useState(false);
 
     const colorPrimary = getComputedStyle(document.documentElement)
       .getPropertyValue('--color-primary')
@@ -33,24 +34,52 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
       .getPropertyValue('--color-background')
       .trim();
 
+    const expandButton = useCallback(() => {
+      gsap.to(buttonRepresentationRef.current, {
+        width: 56,
+        height: 56,
+        duration: 0.2,
+        borderRadius: '50%',
+        border: `1px solid rgba(48, 62, 88, 0.5)`,
+        fontWeight: 'normal',
+        fontSize: 0.2,
+        lineHeight: 1.5,
+        color: `${colorPrimary}`,
+        backgroundColor: `${backgroundColor}`,
+        ease: 'power2.out',
+      });
+
+      setShowNumber(true);
+    }, []);
+
+    const closeButton = useCallback(() => {
+      if (numberRef.current) {
+        gsap.to(numberRef.current, {
+          opacity: 0,
+          scale: 0.5,
+          duration: 0.2,
+          ease: 'power2.in',
+          onComplete: () => {
+            setShowNumber(false); // Скрыть number после анимации
+          },
+        });
+      } else {
+        setShowNumber(false);
+      }
+
+      gsap.to(buttonRepresentationRef.current, {
+        width: 6,
+        height: 6,
+        duration: 0.2,
+        borderRadius: '50%',
+        backgroundColor: `${colorPrimary}`,
+        ease: 'power2.in',
+      });
+    }, []);
+
     useEffect(() => {
       if (selected) {
-        gsap.to(innerRef.current, {
-          width: 56,
-          height: 56,
-          duration: 0.2,
-          borderRadius: '50%',
-          border: `1px solid rgba(48, 62, 88, 0.5)`,
-          fontWeight: 'normal',
-          fontSize: 0.2,
-          lineHeight: 1.5,
-          color: `${colorPrimary}`,
-          backgroundColor: `${backgroundColor}`,
-          ease: 'power2.out',
-        });
-
-        setShowNumber(true);
-
+        expandButton();
         gsap.delayedCall(1, () => {
           setShowLabel(true);
         });
@@ -69,28 +98,7 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           setShowLabel(false);
         }
 
-        if (numberRef.current) {
-          gsap.to(numberRef.current, {
-            opacity: 0,
-            scale: 0.5,
-            duration: 0.2,
-            ease: 'power2.in',
-            onComplete: () => {
-              setShowNumber(false); // Скрыть number после анимации
-            },
-          });
-        } else {
-          setShowNumber(false);
-        }
-
-        gsap.to(innerRef.current, {
-          width: 6,
-          height: 6,
-          duration: 0.2,
-          borderRadius: '50%',
-          backgroundColor: `${colorPrimary}`,
-          ease: 'power2.in',
-        });
+        closeButton();
       }
     }, [selected]);
 
@@ -114,18 +122,45 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
       }
     }, [showNumber]);
 
+    useEffect(() => {
+      if (!selected) {
+        if (mouseOver) {
+          expandButton();
+        } else {
+          closeButton();
+        }
+      }
+    }, [selected, mouseOver]);
+
+    const onMouseEnter = () => {
+      setMouseOver(true);
+    };
+
+    const onMouseLeave = () => {
+      setMouseOver(false);
+    };
+
     return (
-      <button ref={combinedRef} onClick={onClick} className={styles.btn} {...rest}>
-        {showNumber && (
-          <span ref={numberRef} className={styles.number}>
-            {number}
-          </span>
-        )}
-        {showLabel && (
-          <span ref={labelRef} className={styles.label}>
-            {label}
-          </span>
-        )}
+      <button
+        ref={combinedRef}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        className={styles.btn}
+        {...rest}
+      >
+        <div ref={buttonRepresentationRef} className={styles.btnPresentation}>
+          {showNumber && (
+            <span ref={numberRef} className={styles.number}>
+              {number}
+            </span>
+          )}
+          {showLabel && (
+            <span ref={labelRef} className={styles.label}>
+              {label}
+            </span>
+          )}
+        </div>
       </button>
     );
   },

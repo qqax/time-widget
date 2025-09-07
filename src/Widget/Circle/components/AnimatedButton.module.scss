@@ -1,0 +1,44 @@
+@use '../../../styles/variables';
+
+.btn {
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  position: absolute;
+  font-size: 1rem;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.btn-presentation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.number {
+  font-size: 1.25rem;
+  pointer-events: none;
+  text-align: center;
+}
+
+.label {
+  position: absolute;
+  left: 4em;
+  font-size: 1.25rem;
+  font-weight: bold;
+  pointer-events: none;
+  white-space: nowrap;
+}
