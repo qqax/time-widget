@@ -26,6 +26,7 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     const [showLabel, setShowLabel] = useState(false);
     const [showNumber, setShowNumber] = useState(false);
     const [mouseOver, setMouseOver] = useState(false);
+    const labelTimeoutRef = useRef<gsap.core.Tween | null>(null);
 
     const colorPrimary = getComputedStyle(document.documentElement)
       .getPropertyValue('--color-primary')
@@ -60,7 +61,7 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
           duration: 0.2,
           ease: 'power2.in',
           onComplete: () => {
-            setShowNumber(false); // Скрыть number после анимации
+            setShowNumber(false);
           },
         });
       } else {
@@ -78,9 +79,14 @@ const AnimatedButton = forwardRef<HTMLButtonElement, AnimatedButtonProps>(
     }, []);
 
     useEffect(() => {
+      if (labelTimeoutRef.current) {
+        labelTimeoutRef.current.kill();
+        labelTimeoutRef.current = null;
+      }
       if (selected) {
         expandButton();
-        gsap.delayedCall(1, () => {
+
+        labelTimeoutRef.current = gsap.delayedCall(1, () => {
           setShowLabel(true);
         });
       } else {

@@ -6,15 +6,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 215px 0; // по 215px сверху и снизу
+  padding: 215px 0;
   box-sizing: border-box;
 }
 
 .circle-container {
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-height: calc(100vh - 430px); // 215px * 2
-  max-width: calc(100vh - 430px);  // чтобы не "вываливался" по ширине
+  max-height: calc(100vh - 430px);
+  max-width: calc(100vh - 430px);
   border-radius: 50%;
   border: 1px solid var(--color-border);
 }

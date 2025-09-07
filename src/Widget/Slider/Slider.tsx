@@ -8,7 +8,7 @@ import 'swiper/scss/pagination';
 
 import styles from './Slider.module.scss';
 import { TimeWidgetItem } from '../types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
 import GrowDiv from './GrowDiv';
@@ -34,15 +34,21 @@ export default function Slider({ items }: SliderProps) {
   }, [swiperInstance, items, updateNavigation]);
 
   const [sliderItems, setSliderItems] = useState(items);
+  const sliderTimeoutRef = useRef<gsap.core.Tween | null>(null);
 
   useEffect(() => {
+    if (sliderTimeoutRef.current) {
+      sliderTimeoutRef.current.kill();
+      sliderTimeoutRef.current = null;
+    }
+
     gsap.to('.swiper-slide', {
       opacity: 0,
       duration: 0.2,
       ease: 'power2.out',
       onComplete: () => {
         setSliderItems(() => items);
-        gsap.delayedCall(0.05, () => {
+        sliderTimeoutRef.current = gsap.delayedCall(0.05, () => {
           gsap.to('.swiper-slide', {
             opacity: 1,
             duration: 0.3,

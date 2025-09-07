@@ -1,0 +1,19 @@
+$breakpoints: (
+        xs: 320px,
+        sm: 576px,
+        md: 768px,
+        lg: 1024px,
+        xl: 1280px,
+        xxl: 1440px,
+);
+
+@mixin respond-to($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
+  }
+}

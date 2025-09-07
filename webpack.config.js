@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+import webpack from "webpack";
 
 const isDev = process.env.NODE_ENV === "development";
 
@@ -22,7 +23,7 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true, // Важно: ускоряет сборку
+              transpileOnly: true,
             },
           },
         ],
@@ -61,6 +62,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new webpack.IgnorePlugin({
+      resourceRegExp: /mockTimeWidgetData\.ts$/,
     }),
     ...(isDev ? [] : [new MiniCssExtractPlugin()]),
   ],

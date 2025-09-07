@@ -1,6 +1,6 @@
 import React from 'react';
 import TimeWidget from './Widget/TimeWidget';
-import { mockTimeWidgetData } from './Widget/mockTimeWidgetData';
+import { mockTimeWidgetData } from './mockTimeWidgetData';
 
 function App() {
   return (

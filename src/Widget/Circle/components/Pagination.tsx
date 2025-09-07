@@ -21,9 +21,9 @@ export default function Pagination({
 
   return (
     <div className={styles.container}>
-      <span>
+      <div className={styles.pagination}>
         {selectedCategory}/{totalCategories}
-      </span>
+      </div>
       <div className={styles.btnContainer}>
         <button
           type={'button'}
