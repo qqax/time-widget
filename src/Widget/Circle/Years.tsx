@@ -1,10 +1,11 @@
 import styles from './Years.module.scss';
+import { YearsProps } from '../models';
 
-export default function Years() {
+export default function Years({ firstYear, lastYear }: YearsProps) {
   return (
     <div className={styles.yearsContainer}>
-      <span>2010</span>
-      <span>2026</span>
+      <span>{firstYear}</span>
+      <span>{lastYear}</span>
     </div>
   );
 }

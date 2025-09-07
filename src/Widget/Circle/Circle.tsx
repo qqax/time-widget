@@ -1,40 +1,27 @@
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './Circle.module.scss';
 import mainStyles from '../TimeWidget.module.scss';
-
-const { crossLineHorizontal } = mainStyles;
-
 import gsap from 'gsap';
 import AnimatedButton from './AnimatedButton';
 import Years from './Years';
+import { CircleProps } from '../models';
 
-const buttonData = [
-  { id: 12, label: 'First' },
-  { label: 'Second' },
-  { label: 'Third' },
-  { label: 'Fourth' },
-  { label: 'Fifth' },
-  { label: 'Sixth' },
-];
+const { crossLineHorizontal } = mainStyles;
 
-export default function Circle() {
+export default function Circle({
+  buttonsData,
+  firstYear,
+  lastYear,
+  selectedIndex,
+  setSelectedIndex,
+}: CircleProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const buttonRefs = useRef<HTMLButtonElement[]>([]);
-  const count = buttonData.length;
+  const count = buttonsData.length;
   const initialAngle = -Math.PI / 3;
   const anglePerButton = useMemo(() => (Math.PI * 2) / count, [count]);
-  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const angleOffsetRef = useRef(initialAngle);
-
-  const idPrefix = useId();
-  const buttons = useMemo(
-    () =>
-      buttonData.map((data, i) => {
-        return { ...data, key: data.id || `${idPrefix}-${i}` };
-      }),
-    [buttonData, selectedIndex],
-  );
 
   const positionButtons = useCallback(
     (angleShift = initialAngle) => {
@@ -77,7 +64,7 @@ export default function Circle() {
         },
       });
     },
-    [anglePerButton, buttons.length, initialAngle, positionButtons],
+    [anglePerButton, buttonsData.length, initialAngle, positionButtons],
   );
 
   useEffect(() => {
@@ -97,11 +84,11 @@ export default function Circle() {
         <div className={styles.crossWrapper}>
           <div className={crossLineHorizontal} />
         </div>
-        <Years />
+        <Years firstYear={firstYear} lastYear={lastYear} />
         <div className={styles.circleContainer} ref={containerRef}>
-          {buttons.map(({ key, label }, i) => (
+          {buttonsData.map(({ id, label }, i) => (
             <AnimatedButton
-              key={key}
+              key={id}
               ref={(el) => {
                 if (el) buttonRefs.current[i] = el;
               }}
