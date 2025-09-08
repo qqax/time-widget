@@ -13,6 +13,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import GrowDiv from './GrowDiv';
 
+import { isAtLeast } from '../../styles/breakpoints';
+
 type SliderProps = {
   items: TimeWidgetItem[];
 };
@@ -59,6 +61,36 @@ export default function Slider({ items }: SliderProps) {
     });
   }, [items]);
 
+  const spaceBetweenSlides = isAtLeast('xl') ? 80 : isAtLeast('md') ? 32 : 25;
+
+  useEffect(() => {
+    if (!swiperInstance) return;
+
+    const updateOpacity = () => {
+      swiperInstance.slides.forEach((slideEl: HTMLElement) => {
+        const progress = Math.abs((slideEl as unknown as { progress: number }).progress);
+
+        const targetOpacity = progress < 0.5 ? 1 : 0.5;
+
+        gsap.to(slideEl, {
+          opacity: targetOpacity,
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      });
+    };
+
+    swiperInstance.on('progress', updateOpacity);
+    swiperInstance.on('setTranslate', updateOpacity);
+
+    updateOpacity();
+
+    return () => {
+      swiperInstance.off('progress', updateOpacity);
+      swiperInstance.off('setTranslate', updateOpacity);
+    };
+  }, [swiperInstance]);
+
   if (!sliderItems || !sliderItems.length) return null;
 
   return (
@@ -88,20 +120,26 @@ export default function Slider({ items }: SliderProps) {
         onSlideChange={updateNavigation}
         onReachBeginning={() => setIsBeginning(true)}
         onReachEnd={() => setIsEnd(true)}
-        spaceBetween={80}
+        spaceBetween={spaceBetweenSlides}
         slidesPerView="auto"
         pagination={{ clickable: true }}
-        slidesOffsetBefore={16}
-        slidesOffsetAfter={16}
+        slidesOffsetBefore={0}
+        slidesOffsetAfter={0}
         grabCursor={true}
         resistance={true}
         resistanceRatio={0.85}
-        className={styles.fade}
+        watchSlidesProgress={true}
+        className={styles.swiperMain}
       >
         {sliderItems.map(({ year, article }, idx) => (
           <SwiperSlide key={idx} className={styles.slide}>
             <h3 className={styles.year}>{year}</h3>
-            <GrowDiv className={styles.article} maxHeight={90} startWidth={320} maxWidth={400}>
+            <GrowDiv
+              className={styles.article}
+              maxHeight={isAtLeast('md') ? 90 : 80}
+              startWidth={isAtLeast('md') ? 320 : 166}
+              maxWidth={isAtLeast('md') ? 400 : 255}
+            >
               {article}
             </GrowDiv>
           </SwiperSlide>

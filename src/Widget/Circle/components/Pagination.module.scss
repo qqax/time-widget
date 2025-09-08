@@ -1,40 +1,124 @@
+@use '../../../styles/breakpoints' as bp;
+@use '../../../styles/variables';
+
 .container {
   position: absolute;
-  left: 5rem;
-  bottom: 295px;
+  left: 1.25rem;
+  bottom: 13px;
+
+  @include bp.respond-to(md) {
+    left: 5rem;
+    bottom: 12rem;
+  }
+
+  @include bp.respond-to(xl) {
+    bottom: 15rem;
+  }
+
+  @include bp.respond-to(xxl) {
+    bottom: 295px;
+  }
 }
 
 .pagination {
-  padding-bottom: 1.25rem;
+  padding-bottom: 11px;
   text-align: left;
   font-size: 14px;
+
+  @include bp.respond-to(md) {
+    padding-bottom: 1.25rem;
+  }
 }
 
 .btnContainer {
   display: flex;
-  gap: 1.25rem;
+  gap: 8px;
+
+  @include bp.respond-to(md) {
+    gap: 1.25rem;
+  }
 }
 
 .btn {
-  width: 3.125rem;
-  height: 3.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
   border: 1px solid rgba(66, 86, 122, 0.5);
   transition: all .2s;
   background: transparent;
 
+  @include bp.respond-to(md) {
+    width: 3.125rem;
+    height: 3.125rem;
+  }
+
   &:hover {
     background-color: white;
   }
 
+  img:first-child {
+    display: none;
+    @include bp.respond-to(md) {
+      display: block;
+    }
+  }
+
+  img:last-child {
+    display: block;
+    @include bp.respond-to(md) {
+      display: none;
+    }
+  }
+
   img {
-    filter: brightness(0) saturate(100%) invert(29%) sepia(19%) saturate(1223%) hue-rotate(181deg) brightness(95%) contrast(93%);
-    opacity: 0.5;
+    @include bp.respond-to(md) {
+      filter: brightness(0) saturate(100%) invert(29%) sepia(19%) saturate(1223%) hue-rotate(181deg) brightness(95%) contrast(93%);
+      opacity: 0.5;
+    }
   }
 }
 
 .btn-prev {
   img {
+    @include bp.respond-to(md) {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.btn-next {
+  img {
     transform: rotate(180deg);
+    @include bp.respond-to(md) {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.mobile-pagination-container {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.625rem;
+}
+
+.mobile-pagination-btn {
+  background: var(--color-primary);
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+  border: none;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  padding: 0;
+  display: block;
+
+  &.active {
+    opacity: 1;
   }
 }

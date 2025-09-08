@@ -1,18 +1,36 @@
+@use '../../styles/breakpoints' as bp;
+
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 .sliderWrapper {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 135px;
-  margin-bottom: 5rem;
-  padding: 0 6rem;
+  height: 114px;
+  margin-top: auto;
+  margin-bottom: 141px;
+  padding: 0 0 0 1.25rem;
   box-sizing: border-box;
   overflow: hidden;
+
+  @include bp.respond-to(lg) {
+    height: 135px;
+    padding: 0 4rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @include bp.respond-to(xl) {
+    padding: 0 6rem;
+    margin-bottom: 3rem;
+  }
+
+  @include bp.respond-to(xxl) {
+    margin-bottom: 5rem;
+  }
 }
 
-.fade::before,
-.fade::after {
+.swiper-main::before,
+.swiper-main::after {
   content: '';
   position: absolute;
   top: 0;
@@ -22,37 +40,42 @@
   z-index: 10;
 }
 
-.fade::before {
-  left: 0;
-  background: linear-gradient(to right, var(--color-background), transparent);
-}
-
-.fade::after {
-  right: 0;
-  background: linear-gradient(to left, var(--color-background), transparent);
-}
-
 .slide {
+  transition: opacity 0.3s ease;
+  opacity: 0.5;
   text-align: left;
   height: 135px;
-
-  min-width: 320px;
-  max-width: 400px;
   width: max-content;
+
+  &.is-visible {
+    opacity: 1;
+  }
+
+  @include bp.respond-to(md) {
+    opacity: 1;
+  }
 }
 
 .year {
   font-family: 'Bebas Neue', sans-serif;
 
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--color-secondary);
   margin-top: 0;
   margin-bottom: 1rem;
+
+  @include bp.respond-to(md) {
+    font-size: 1.5rem;
+  }
 }
 
 .article {
-  font-size: 1.25rem;
+  font-size: 0.875rem;
+
+  @include bp.respond-to(md) {
+    font-size: 1.25rem;
+  }
 }
 
 .article::after {
@@ -61,13 +84,18 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 0.5rem;
+  height: 2.5rem;
   pointer-events: none;
-  background: linear-gradient(to bottom, rgba(255,255,255,0), #f0f0f0 90%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #F4F5F9 90%);
+
+  @include bp.respond-to(md) {
+    height: 0.5rem;
+  }
 }
 
 .swiper-button-prev,
 .swiper-button-next {
+  display: none;
   position: absolute;
   top: 50%;
   z-index: 10;
@@ -77,7 +105,6 @@
   border-radius: 50%;
   cursor: pointer;
   transform: translateY(-50%);
-  display: flex;
   align-items: center;
   justify-content: center;
   filter: drop-shadow(0px 0px 15px rgba(56, 119, 238, 0.1));
@@ -87,10 +114,18 @@
     opacity: 0;
     pointer-events: none;
   }
+
+  @include bp.respond-to(md) {
+    display: flex;
+  }
 }
 
 .swiper-button-prev {
-  left: 1.25rem;
+  left: 0.75rem;
+
+  @include bp.respond-to(xl) {
+    left: 1.25rem;
+  }
 
   img {
     transform: rotate(180deg);
@@ -98,7 +133,11 @@
 }
 
 .swiper-button-next {
-  right: 1.25rem;
+  right: 0.75rem;
+
+  @include bp.respond-to(xl) {
+    right: 1.25rem;
+  }
 }
 
 .swiper-button-next::after,

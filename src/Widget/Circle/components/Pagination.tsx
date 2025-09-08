@@ -31,11 +31,35 @@ export default function Pagination({
           onClick={selectPrevCategory}
         >
           <img src="/icons/arrow-right.svg" alt="Prev" />
+          <img src="/icons/arrow-left-sm.svg" alt="Prev" />
         </button>
-        <button type={'button'} className={styles.btn} onClick={selectNextCategory}>
+        <button
+          type={'button'}
+          className={`${styles.btn} ${styles.btnNext}`}
+          onClick={selectNextCategory}
+        >
           <img src="/icons/arrow-right.svg" alt="Prev" />
+          <img src="/icons/arrow-left-sm.svg" alt="Prev" />
         </button>
       </div>
+    </div>
+  );
+}
+
+export function PaginationMobile({
+  totalCategories,
+  selectedCategory,
+  setSelectedCategory,
+}: PaginationProps) {
+  return (
+    <div className={styles.mobilePaginationContainer}>
+      {Array.from({ length: totalCategories }).map((_, i) => (
+        <button
+          key={i}
+          onClick={() => setSelectedCategory(i)}
+          className={`${styles.mobilePaginationBtn} ${selectedCategory === i ? styles.active : ''}`}
+        />
+      ))}
     </div>
   );
 }

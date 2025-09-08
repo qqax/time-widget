@@ -1,15 +1,31 @@
+@use '../../../styles/breakpoints' as bp;
 @use '../../../styles/variables';
 
 .years-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 12.5rem;
+  font-size: 3.5rem;
   font-weight: bold;
   display: flex;
   gap: 0.5em;
 
+  @include bp.respond-to(md) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 6rem;
+  }
+
+  @include bp.respond-to(lg) {
+    font-size: 8rem;
+  }
+
+  @include bp.respond-to(xl) {
+    font-size: 10rem;
+  }
+
+  @include bp.respond-to(xxl) {
+    font-size: 12.5rem;
+  }
 
   span:first-child{
     color: var(--color-left-year);

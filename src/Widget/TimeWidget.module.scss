@@ -1,4 +1,5 @@
 @use '../styles/variables';
+@use '../styles/breakpoints' as bp;
 
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 
@@ -17,13 +18,29 @@
   position: absolute;
   z-index: 10;
   text-align: left;
-  font-size: 3.5rem;
+  font-size: 1.25rem;
   font-weight: bold;
-  padding-left: 1.625em;
-  margin: 10.325rem 0 0 0;
+  padding-left: 1.25em;
+  margin: 3.75rem 0 0 0;
+
+  @include bp.respond-to(lg) {
+    font-size: 2.5rem;
+    padding-left: 1.625em;
+    margin: 3.5rem 0 0 0;
+  }
+
+  @include bp.respond-to(xl) {
+    font-size: 3.5rem;
+    margin: 6rem 0 0 0;
+  }
+
+  @include bp.respond-to(xxl) {
+    margin: 10.325rem 0 0 0;
+  }
 }
 
 .title::before {
+  display: none;
   content: "";
   position: absolute;
   top: 0;
@@ -31,31 +48,67 @@
   width: 5px;
   height: 100%;
   background: linear-gradient(0deg, var(--color-right-year), var(--color-secondary));
+
+  @include bp.respond-to(md) {
+    display: block;
+  }
 }
 
 @mixin crossLineBase {
-  position: absolute;
   background-color: var(--color-border);
   pointer-events: none;
   z-index: 0;
+
+  @include bp.respond-to(md) {
+    position: absolute;
+    display: block;
+  }
 }
 
 .crossLineVertical {
   @include crossLineBase;
 
+  display: none;
   top: 0;
   left: 50%;
   width: 1px;
   height: 100%;
   transform: translateX(-50%);
+
+  @include bp.respond-to(md) {
+    display: block;
+  }
 }
 
 .crossLineHorizontal {
   @include crossLineBase;
 
-  top: 50%;
-  left: 0;
   width: 100%;
   height: 1px;
   transform: translateY(-50%);
+
+  @include bp.respond-to(md) {
+    margin: 0;
+    top: 50%;
+    left: 0;
+  }
+}
+
+.mobile {
+  display: flex;
+  margin-top: 163px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  height: 130px;
+
+  @include bp.respond-to(md) {
+    display: none;
+  }
+}
+
+.titleMobile {
+  margin: 0 auto 0 0;
+  font-size: 1rem;
 }
