@@ -13,12 +13,11 @@
     display: flex;
     height: 6rem;
     padding: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 2.5rem;
   }
 
   @include bp.respond-to(lg) {
     height: 135px;
-    margin-bottom: 1.5rem;
   }
 
   @include bp.respond-to(xl) {

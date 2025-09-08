@@ -9,9 +9,21 @@
   @include bp.respond-to(sm) {
     left: 0;
     position: relative;
-    margin-left: 5em;
-    margin-bottom: 3.5em;
+    margin-left: 2.5em;
+    margin-bottom: 0.5em;
     z-index: 10;
+  }
+
+  @include bp.respond-to(md) {
+    margin-bottom: 1em;
+  }
+
+  @include bp.respond-to(lg) {
+    margin-left: 5em;
+  }
+
+  @include bp.respond-to(xxl) {
+    margin-bottom: 3.5em;
   }
 }
 
@@ -46,6 +58,11 @@
   background: transparent;
 
   @include bp.respond-to(md) {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  @include bp.respond-to(xl) {
     width: 3.125rem;
     height: 3.125rem;
   }
