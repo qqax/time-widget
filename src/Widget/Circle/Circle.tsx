@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './Circle.module.scss';
-import crossStyle from '../Cross.module.scss';
+import crossStyle from '../../styles/Cross.module.scss';
 import gsap from 'gsap';
 import AnimatedButton from './components/AnimatedButton';
 import YearsRange from './components/YearsRange';

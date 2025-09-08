@@ -15,7 +15,7 @@ import GrowDiv from './GrowDiv';
 
 import { isAtLeast } from '../../styles/breakpoints';
 
-type SliderProps = {
+export type SliderProps = {
   items: TimeWidgetItem[];
 };
 
@@ -23,6 +23,8 @@ export default function Slider({ items }: SliderProps) {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
+  const [sliderItems, setSliderItems] = useState(items);
+  const sliderTimeoutRef = useRef<gsap.core.Tween | null>(null);
 
   const updateNavigation = useCallback(() => {
     if (swiperInstance) {
@@ -32,39 +34,45 @@ export default function Slider({ items }: SliderProps) {
   }, [swiperInstance]);
 
   useEffect(() => {
-    updateNavigation();
-  }, [swiperInstance, items, updateNavigation]);
-
-  const [sliderItems, setSliderItems] = useState(items);
-  const sliderTimeoutRef = useRef<gsap.core.Tween | null>(null);
+    swiperInstance?.slideTo(0, 0);
+  }, [sliderItems]);
 
   useEffect(() => {
-    if (sliderTimeoutRef.current) {
-      sliderTimeoutRef.current.kill();
-      sliderTimeoutRef.current = null;
-    }
+    updateNavigation();
+  }, [swiperInstance, sliderItems, updateNavigation]);
 
-    gsap.to('.swiper-slide', {
-      opacity: 0,
-      duration: 0.2,
-      ease: 'power2.out',
-      onComplete: () => {
-        setSliderItems(() => items);
-        sliderTimeoutRef.current = gsap.delayedCall(0.05, () => {
-          gsap.to('.swiper-slide', {
-            opacity: 1,
-            duration: 0.3,
-            ease: 'power2.in',
+  useEffect(() => {
+    if (isAtLeast('sm')) {
+      if (sliderTimeoutRef.current) {
+        sliderTimeoutRef.current.kill();
+        sliderTimeoutRef.current = null;
+      }
+
+      gsap.to('.swiper-slide', {
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power2.out',
+        onComplete: () => {
+          sliderTimeoutRef.current = gsap.delayedCall(0.15, () => {
+            setSliderItems(() => items);
+
+            gsap.to('.swiper-slide', {
+              opacity: 1,
+              duration: 0.3,
+              ease: 'power2.in',
+            });
           });
-        });
-      },
-    });
+        },
+      });
+    } else {
+      setSliderItems(() => items);
+    }
   }, [items]);
 
   const spaceBetweenSlides = isAtLeast('xl') ? 80 : isAtLeast('md') ? 32 : 25;
 
   useEffect(() => {
-    if (!swiperInstance) return;
+    if (isAtLeast('sm') || !swiperInstance) return;
 
     const updateOpacity = () => {
       swiperInstance.slides.forEach((slideEl: HTMLElement) => {
@@ -123,7 +131,7 @@ export default function Slider({ items }: SliderProps) {
         slidesOffsetAfter={0}
         grabCursor={true}
         resistance={true}
-        resistanceRatio={0.85}
+        resistanceRatio={0.5}
         watchSlidesProgress={true}
         className={styles.swiperMain}
       >

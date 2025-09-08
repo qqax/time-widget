@@ -5,7 +5,7 @@ type CategoriesProps = {
   setSelectedCategory: (selectedCategory: number) => void;
 };
 
-type NavigationProps = {
+export type NavigationProps = {
   selectedCategory: number;
 } & CategoriesProps;
 

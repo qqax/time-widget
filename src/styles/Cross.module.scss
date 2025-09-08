@@ -1,4 +1,4 @@
-@use '../styles/breakpoints' as bp;
+@use 'breakpoints' as bp;
 
 @mixin crossLineBase {
   pointer-events: none;

@@ -1,11 +1,11 @@
 import styles from './TimeWidget.module.scss';
-import crossStyle from './Cross.module.scss';
+import crossStyle from '../styles/Cross.module.scss';
 import Circle from './Circle/Circle';
-import Slider from './Slider/Slider';
 import { useMemo, useState } from 'react';
 import { Button, TimeWidgetData } from './types';
 import YearsRange from './Circle/components/YearsRange';
 import Navigation, { NavigationMobile } from './Circle/components/Navigation';
+import SliderBlock from './Slider/SliderBlock';
 
 type TimeWidgetProps = {
   data: TimeWidgetData;
@@ -50,16 +50,12 @@ export default function TimeWidget({ data }: TimeWidgetProps) {
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex}
       />
-      <div className={styles.sliderContainer}>
-        <h2 className={styles.titleMobile}>{data[selectedIndex].category}</h2>
-        <div className={crossStyle.crossLineHorizontal} />
-        <Slider items={sortedItems} />
-        <Navigation
-          totalCategories={buttonsData.length}
-          selectedCategory={selectedIndex + 1}
-          setSelectedCategory={setSelectedIndex}
-        />
-      </div>
+      <SliderBlock title={data[selectedIndex].category} items={sortedItems} />
+      <Navigation
+        totalCategories={buttonsData.length}
+        selectedCategory={selectedIndex + 1}
+        setSelectedCategory={setSelectedIndex}
+      />
       <NavigationMobile
         totalCategories={buttonsData.length}
         selectedIndex={selectedIndex}
