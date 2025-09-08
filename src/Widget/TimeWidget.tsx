@@ -3,8 +3,8 @@ import crossStyle from '../styles/Cross.module.scss';
 import Circle from './Circle/Circle';
 import { useMemo, useState } from 'react';
 import { Button, TimeWidgetData } from './types';
-import YearsRange from './Circle/components/YearsRange';
-import Navigation, { NavigationMobile } from './Circle/components/Navigation';
+import YearsRange from './YearsRange/YearsRange';
+import Navigation, { NavigationMobile } from './Navigation/Navigation';
 import SliderBlock from './Slider/SliderBlock';
 
 type TimeWidgetProps = {

@@ -54,7 +54,6 @@ npm run build
 ## Структура
 ```bash
 src/
-├── package.json
 ├── package-lock.json
 ├── public
 │   ├── icons
@@ -75,15 +74,13 @@ src/
 │   │   └── _variables.scss
 │   └── Widget
 │       ├── Circle
+│       │   ├── AnimatedButton.module.scss
+│       │   ├── AnimatedButton.tsx
 │       │   ├── Circle.module.scss
-│       │   ├── Circle.tsx
-│       │   └── components
-│       │       ├── AnimatedButton.module.scss
-│       │       ├── AnimatedButton.tsx
-│       │       ├── Navigation.module.scss
-│       │       ├── Navigation.tsx
-│       │       ├── Years.module.scss
-│       │       └── YearsRange.tsx
+│       │   └── Circle.tsx
+│       ├── Navigation
+│       │   ├── Navigation.module.scss
+│       │   └── Navigation.tsx
 │       ├── Slider
 │       │   ├── GrowDiv.tsx
 │       │   ├── SliderBlock.tsx
@@ -91,15 +88,18 @@ src/
 │       │   └── Slider.tsx
 │       ├── TimeWidget.module.scss
 │       ├── TimeWidget.tsx
-│       └── types.ts
+│       ├── types.ts
+│       └── YearsRange
+│           ├── Years.module.scss
+│           └── YearsRange.tsx
 ├── tsconfig.json
 └── webpack.config.js
-
 ```
 | Компонент        | Назначение                               |
-| ---------------- | ---------------------------------------- |
+|------------------|------------------------------------------|
 | `TimeWidget`     | Главный компонент                        |
 | `Circle`         | Круговая интерактивная область           |
+| `Navigation`     | Навигация по категориям                  |
 | `Slider`         | Вертикальный слайдер с годовыми статьями |
 | `AnimatedButton` | Кнопка с анимацией выбора года           |
 | `YearsRange`     | Компонент, показывающий диапазон лет     |
