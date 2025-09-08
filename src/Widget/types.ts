@@ -1,8 +1,9 @@
-export type TimeWidgetItem = {
+export type HistoricalData = { category: string; items: HistoricalItem[] }[];
+
+export type HistoricalItem = {
   year: number;
   article: string;
 };
-export type TimeWidgetData = { category: string; items: TimeWidgetItem[] }[];
 
 export type Years = {
   firstYear: number;

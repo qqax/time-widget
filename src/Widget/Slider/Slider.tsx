@@ -7,7 +7,7 @@ import 'swiper/scss';
 import 'swiper/scss/pagination';
 
 import styles from './Slider.module.scss';
-import { TimeWidgetItem } from '../types';
+import { HistoricalItem } from '../types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
@@ -16,7 +16,7 @@ import GrowDiv from './GrowDiv';
 import { isAtLeast } from '../../styles/breakpoints';
 
 export type SliderProps = {
-  items: TimeWidgetItem[];
+  items: HistoricalItem[];
 };
 
 export default function Slider({ items }: SliderProps) {

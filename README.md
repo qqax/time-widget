@@ -31,14 +31,16 @@ import 'your-time-widget/dist/main.css';
 
 ## Пропсы
 ```ts
-interface TimeWidgetProps {
-  data?: HistoricalItem[];
-}
+type TimeWidgetProps = {
+    data: HistoricalData;
+};
+
+type HistoricalData = { category: string; items: HistoricalItem[] }[];
 
 type HistoricalItem = {
-    year: string;
+    year: number;
     article: string;
-}
+};
 ```
 ## Локальная разработка
 ```bash

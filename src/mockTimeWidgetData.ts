@@ -1,6 +1,6 @@
-import { TimeWidgetData } from './Widget/types';
+import { HistoricalData } from './Widget/types';
 
-export const mockTimeWidgetData: TimeWidgetData = [
+export const mockTimeWidgetData: HistoricalData = [
   {
     category: 'История',
     items: [
