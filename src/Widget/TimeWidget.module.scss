@@ -7,6 +7,9 @@
   font-family: 'PT Sans', sans-serif;
 
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background: var(--color-background);
   z-index: 1;
   border: 1px solid var(--color-border);
@@ -14,19 +17,50 @@
   height: 100%;
 }
 
+.titleContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: 3.75rem 0 0 0;
+  height: 100%;
+
+  > *:nth-child(2) {
+    display: none;
+  }
+
+  @include bp.respond-to(sm) {
+    width: min-content;
+    justify-content: space-between;
+    margin: 0;
+    > *:nth-child(2) {
+      display: block;
+    }
+
+    > *:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
 .title {
-  position: absolute;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  white-space: pre-line;
   z-index: 10;
   text-align: left;
   font-size: 1.25rem;
   font-weight: bold;
-  padding-left: 1.25em;
-  margin: 3.75rem 0 0 0;
+  margin: 0 0 3.5rem 1.25rem;
+
+  @include bp.respond-to(sm) {
+    font-size: 2rem;
+    padding-left: 1.625em;
+    margin: 3.5rem 0 0 0;
+  }
 
   @include bp.respond-to(lg) {
     font-size: 2.5rem;
-    padding-left: 1.625em;
-    margin: 3.5rem 0 0 0;
   }
 
   @include bp.respond-to(xl) {
@@ -41,56 +75,30 @@
 
 .title::before {
   display: none;
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(0deg, var(--color-right-year), var(--color-secondary));
 
-  @include bp.respond-to(md) {
+  @include bp.respond-to(sm) {
     display: block;
-  }
-}
-
-@mixin crossLineBase {
-  background-color: var(--color-border);
-  pointer-events: none;
-  z-index: 0;
-
-  @include bp.respond-to(md) {
+    content: "";
     position: absolute;
-    display: block;
-  }
-}
-
-.crossLineVertical {
-  @include crossLineBase;
-
-  display: none;
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-  transform: translateX(-50%);
-
-  @include bp.respond-to(md) {
-    display: block;
-  }
-}
-
-.crossLineHorizontal {
-  @include crossLineBase;
-
-  width: 100%;
-  height: 1px;
-  transform: translateY(-50%);
-
-  @include bp.respond-to(md) {
-    margin: 0;
-    top: 50%;
+    top: 0;
     left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(0deg, var(--color-right-year), var(--color-secondary));
+  }
+}
+
+.slider-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  @include bp.respond-to(sm) {
+    height: auto;
+
+    > :not(:nth-child(3)) {
+      display: none;
+    }
   }
 }
 
@@ -103,12 +111,13 @@
   padding: 0 1.25rem;
   height: 130px;
 
-  @include bp.respond-to(md) {
+  @include bp.respond-to(sm) {
     display: none;
   }
 }
 
 .titleMobile {
-  margin: 0 auto 0 0;
+  margin: 0 0 1.25rem 1.25rem;
+  text-align: left;
   font-size: 1rem;
 }

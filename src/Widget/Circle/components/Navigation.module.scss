@@ -6,9 +6,9 @@
   left: 1.25rem;
   bottom: 13px;
 
-  @include bp.respond-to(md) {
-    left: 5rem;
-    bottom: 12rem;
+  @include bp.respond-to(sm) {
+    position: relative;
+    bottom: 0;
   }
 
   @include bp.respond-to(xl) {
@@ -20,12 +20,12 @@
   }
 }
 
-.pagination {
+.navigation {
   padding-bottom: 11px;
   text-align: left;
   font-size: 14px;
 
-  @include bp.respond-to(md) {
+  @include bp.respond-to(sm) {
     padding-bottom: 1.25rem;
   }
 }
@@ -34,7 +34,7 @@
   display: flex;
   gap: 8px;
 
-  @include bp.respond-to(md) {
+  @include bp.respond-to(sm) {
     gap: 1.25rem;
   }
 }
@@ -61,20 +61,20 @@
 
   img:first-child {
     display: none;
-    @include bp.respond-to(md) {
+    @include bp.respond-to(sm) {
       display: block;
     }
   }
 
   img:last-child {
     display: block;
-    @include bp.respond-to(md) {
+    @include bp.respond-to(sm) {
       display: none;
     }
   }
 
   img {
-    @include bp.respond-to(md) {
+    @include bp.respond-to(sm) {
       filter: brightness(0) saturate(100%) invert(29%) sepia(19%) saturate(1223%) hue-rotate(181deg) brightness(95%) contrast(93%);
       opacity: 0.5;
     }
@@ -83,7 +83,7 @@
 
 .btn-prev {
   img {
-    @include bp.respond-to(md) {
+    @include bp.respond-to(sm) {
       transform: rotate(180deg);
     }
   }
@@ -92,22 +92,25 @@
 .btn-next {
   img {
     transform: rotate(180deg);
-    @include bp.respond-to(md) {
+    @include bp.respond-to(sm) {
       transform: rotate(0deg);
     }
   }
 }
 
-.mobile-pagination-container {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
+.mobile-navigation-container {
   display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+  justify-content: center;
   gap: 0.625rem;
+
+  @include bp.respond-to(sm) {
+    display: none;
+  }
 }
 
-.mobile-pagination-btn {
+.mobile-navigation-btn {
   background: var(--color-primary);
   border-radius: 50%;
   width: 6px;

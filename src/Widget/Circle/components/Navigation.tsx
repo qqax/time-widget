@@ -1,16 +1,23 @@
-import styles from './Pagination.module.scss';
+import styles from './Navigation.module.scss';
 
-type PaginationProps = {
+type CategoriesProps = {
   totalCategories: number;
-  selectedCategory: number;
   setSelectedCategory: (selectedCategory: number) => void;
 };
 
-export default function Pagination({
+type NavigationProps = {
+  selectedCategory: number;
+} & CategoriesProps;
+
+type MobileNavigationProps = {
+  selectedIndex: number;
+} & CategoriesProps;
+
+export default function Navigation({
   totalCategories,
   selectedCategory,
   setSelectedCategory,
-}: PaginationProps) {
+}: NavigationProps) {
   const selectPrevCategory = () => {
     setSelectedCategory((selectedCategory - 2 + totalCategories) % totalCategories);
   };
@@ -21,7 +28,7 @@ export default function Pagination({
 
   return (
     <div className={styles.container}>
-      <div className={styles.pagination}>
+      <div className={styles.navigation}>
         {String(selectedCategory).padStart(2, '0')}/{String(totalCategories).padStart(2, '0')}
       </div>
       <div className={styles.btnContainer}>
@@ -46,18 +53,18 @@ export default function Pagination({
   );
 }
 
-export function PaginationMobile({
+export function NavigationMobile({
   totalCategories,
-  selectedCategory,
+  selectedIndex,
   setSelectedCategory,
-}: PaginationProps) {
+}: MobileNavigationProps) {
   return (
-    <div className={styles.mobilePaginationContainer}>
+    <div className={styles.mobileNavigationContainer}>
       {Array.from({ length: totalCategories }).map((_, i) => (
         <button
           key={i}
           onClick={() => setSelectedCategory(i)}
-          className={`${styles.mobilePaginationBtn} ${selectedCategory === i ? styles.active : ''}`}
+          className={`${styles.mobileNavigationBtn} ${selectedIndex === i ? styles.active : ''}`}
         />
       ))}
     </div>

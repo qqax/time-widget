@@ -1,0 +1,41 @@
+@use '../styles/breakpoints' as bp;
+
+@mixin crossLineBase {
+  pointer-events: none;
+  background-color: var(--color-border);
+  z-index: 0;
+
+  @include bp.respond-to(sm) {
+    position: absolute;
+  }
+}
+
+.crossLineVertical {
+  display: none;
+
+  @include bp.respond-to(sm) {
+    @include crossLineBase;
+
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    transform: translateX(-50%);
+    display: block;
+  }
+}
+
+.crossLineHorizontal {
+  @include crossLineBase;
+
+  height: 1px;
+  transform: translateY(-50%);
+  margin: 0 1.25rem 1.25rem 1.25rem;
+
+  @include bp.respond-to(sm) {
+    width: 100%;
+    margin: auto;
+    top: 50%;
+    left: 0;
+  }
+}

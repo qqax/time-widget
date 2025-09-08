@@ -9,24 +9,25 @@ $circle-padding-top-xxl: 215px;
 $circle-padding-bottom-xxl: 335px;
 
 .circle-wrapper {
-  position: relative;
-  height: 100%;
   display: none;
-  align-items: center;
-  justify-content: center;
-  padding: $circle-padding-top-lg 0 $circle-padding-bottom-lg 0;
-  box-sizing: border-box;
 
-  @media (min-width: 768px) {
+  @include bp.respond-to(sm) {
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    //margin: $circle-padding-top-lg 0 $circle-padding-bottom-lg 0;
+    box-sizing: border-box;
   }
 
   @include bp.respond-to(xl) {
-    padding: $circle-padding-top-xl 0 $circle-padding-bottom-xl 0;
+    margin: $circle-padding-top-xl 0 $circle-padding-bottom-xl 0;
   }
 
   @include bp.respond-to(xxl) {
-    padding: $circle-padding-top-xxl 0 $circle-padding-bottom-xxl 0;
+    margin: $circle-padding-top-xxl 0 $circle-padding-bottom-xxl 0;
   }
 }
 

@@ -1,13 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './Circle.module.scss';
-import mainStyles from '../TimeWidget.module.scss';
+import crossStyle from '../Cross.module.scss';
 import gsap from 'gsap';
 import AnimatedButton from './components/AnimatedButton';
 import YearsRange from './components/YearsRange';
 import { Button, Years } from '../types';
-import Pagination from './components/Pagination';
-
-const { crossLineHorizontal } = mainStyles;
 
 type CircleProps = {
   buttonsData: Button[];
@@ -92,10 +89,10 @@ export default function Circle({
 
   return (
     <div className={styles.circleWrapper}>
-      <div className={styles.circleContainer} ref={containerRef}>
-        <div className={crossLineHorizontal} />
-        <YearsRange firstYear={firstYear} lastYear={lastYear} />
+      <div className={crossStyle.crossLineHorizontal} />
+      <YearsRange firstYear={firstYear} lastYear={lastYear} />
 
+      <div className={styles.circleContainer} ref={containerRef}>
         {buttonsData.map(({ id, label }, i) => (
           <AnimatedButton
             key={id}
@@ -109,11 +106,11 @@ export default function Circle({
           ></AnimatedButton>
         ))}
       </div>
-      <Pagination
-        totalCategories={buttonsData.length}
-        selectedCategory={selectedIndex + 1}
-        setSelectedCategory={setSelectedIndex}
-      />
+      {/*<Navigation*/}
+      {/*  totalCategories={buttonsData.length}*/}
+      {/*  selectedCategory={selectedIndex + 1}*/}
+      {/*  setSelectedCategory={setSelectedIndex}*/}
+      {/*/>*/}
     </div>
   );
 }

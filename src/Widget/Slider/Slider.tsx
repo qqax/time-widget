@@ -95,17 +95,13 @@ export default function Slider({ items }: SliderProps) {
 
   return (
     <div className={styles.sliderWrapper}>
-      <div
-        className={`${styles.swiperButtonPrev} swiper-button-prev ${isBeginning ? styles.swiperButtonDisabled : ''}`}
-      >
-        <img src="/icons/arrow-right.svg" alt="Prev" />
+      <div className={styles.btnWrapper}>
+        <div
+          className={`${styles.swiperButtonPrev} swiper-button-prev ${isBeginning ? styles.swiperButtonDisabled : ''}`}
+        >
+          <img src="/icons/arrow-right.svg" alt="Prev" />
+        </div>
       </div>
-      <div
-        className={`${styles.swiperButtonNext} swiper-button-next ${isEnd ? styles.swiperButtonDisabled : ''}`}
-      >
-        <img src="/icons/arrow-right.svg" alt="Next" />
-      </div>
-
       <Swiper
         modules={[Navigation]}
         navigation={{
@@ -145,6 +141,13 @@ export default function Slider({ items }: SliderProps) {
           </SwiperSlide>
         ))}
       </Swiper>
+      <div className={styles.btnWrapper}>
+        <div
+          className={`${styles.swiperButtonNext} swiper-button-next ${isEnd ? styles.swiperButtonDisabled : ''}`}
+        >
+          <img src="/icons/arrow-right.svg" alt="Next" />
+        </div>
+      </div>
     </div>
   );
 }
