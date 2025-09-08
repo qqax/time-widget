@@ -1,13 +1,6 @@
 @use '../../styles/variables';
 @use '../../styles/breakpoints' as bp;
 
-$circle-padding-top-lg: 7rem;
-$circle-padding-bottom-lg: 12rem;
-$circle-padding-top-xl: 9rem;
-$circle-padding-bottom-xl: 14rem;
-$circle-padding-top-xxl: 215px;
-$circle-padding-bottom-xxl: 335px;
-
 .circle-wrapper {
   display: none;
 
@@ -18,35 +11,23 @@ $circle-padding-bottom-xxl: 335px;
     display: flex;
     align-items: center;
     justify-content: center;
-    //margin: $circle-padding-top-lg 0 $circle-padding-bottom-lg 0;
     box-sizing: border-box;
   }
+}
 
-  @include bp.respond-to(xl) {
-    margin: $circle-padding-top-xl 0 $circle-padding-bottom-xl 0;
-  }
-
-  @include bp.respond-to(xxl) {
-    margin: $circle-padding-top-xxl 0 $circle-padding-bottom-xxl 0;
-  }
+.margin-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  margin-bottom: 5rem;
 }
 
 .circle-container {
   position: relative;
   aspect-ratio: 1 / 1;
-  height: 100%;
+  height: 50vmin;
   border-radius: 50%;
   border: 1px solid var(--color-border);
-  max-height: calc(100vh - #{$circle-padding-top-lg} - #{$circle-padding-bottom-lg});
-  max-width: calc(100vh - #{$circle-padding-top-lg} - #{$circle-padding-bottom-lg});
-
-  @include bp.respond-to(xl) {
-    max-height: calc(100vh - #{$circle-padding-top-xl} - #{$circle-padding-bottom-xl});
-    max-width: calc(100vh - #{$circle-padding-top-xl} - #{$circle-padding-bottom-xl});
-  }
-
-  @include bp.respond-to(xxl) {
-    max-height: calc(100vh - #{$circle-padding-top-xxl} - #{$circle-padding-bottom-xxl});
-    max-width: calc(100vh - #{$circle-padding-top-xxl} - #{$circle-padding-bottom-xxl});
-  }
 }

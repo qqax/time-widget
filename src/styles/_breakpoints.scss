@@ -19,16 +19,16 @@ $breakpoints: (
     @warn "Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
   }
 }
-//
-//@mixin respond-between($min, $max) {
-//  $min-val: map.get($breakpoints, $min);
-//  $max-val: map.get($breakpoints, $max);
-//
-//  @if $min-val and $max-val {
-//    @media (min-width: $min-val) and (max-width: ($max-val - 1px)) {
-//      @content;
-//    }
-//  } @else {
-//    @warn "One or both breakpoints not found: #{$min}, #{$max}";
-//  }
-//}
+
+@mixin respond-between($min, $max) {
+  $min-val: map.get($breakpoints, $min);
+  $max-val: map.get($breakpoints, $max);
+
+  @if $min-val and $max-val {
+    @media (min-width: $min-val) and (max-width: ($max-val - 1px)) {
+      @content;
+    }
+  } @else {
+    @warn "One or both breakpoints not found: #{$min}, #{$max}";
+  }
+}

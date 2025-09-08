@@ -89,28 +89,24 @@ export default function Circle({
 
   return (
     <div className={styles.circleWrapper}>
-      <div className={crossStyle.crossLineHorizontal} />
-      <YearsRange firstYear={firstYear} lastYear={lastYear} />
-
-      <div className={styles.circleContainer} ref={containerRef}>
-        {buttonsData.map(({ id, label }, i) => (
-          <AnimatedButton
-            key={id}
-            ref={(el) => {
-              if (el) buttonRefs.current[i] = el;
-            }}
-            onClick={() => setSelectedIndex(i)}
-            label={label}
-            number={i + 1}
-            selected={selectedIndex === i}
-          ></AnimatedButton>
-        ))}
+      <div className={styles.marginDiv}>
+        <div className={crossStyle.crossLineHorizontal} />
+        <YearsRange firstYear={firstYear} lastYear={lastYear} />
+        <div className={styles.circleContainer} ref={containerRef}>
+          {buttonsData.map(({ id, label }, i) => (
+            <AnimatedButton
+              key={id}
+              ref={(el) => {
+                if (el) buttonRefs.current[i] = el;
+              }}
+              onClick={() => setSelectedIndex(i)}
+              label={label}
+              number={i + 1}
+              selected={selectedIndex === i}
+            ></AnimatedButton>
+          ))}
+        </div>
       </div>
-      {/*<Navigation*/}
-      {/*  totalCategories={buttonsData.length}*/}
-      {/*  selectedCategory={selectedIndex + 1}*/}
-      {/*  setSelectedCategory={setSelectedIndex}*/}
-      {/*/>*/}
     </div>
   );
 }
