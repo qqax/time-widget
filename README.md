@@ -1,35 +1,40 @@
 # TimeWidget
 
-Интерактивный React-компонент для отображения исторических дат с круговой навигацией и слайдером.
+An interactive React component for displaying historical dates with circular navigation and a slider.
 
 ---
 
-## Установка
+## Installation
 
 ```bash
-npm install your-time-widget
-# или
-yarn add your-time-widget
+npm install <your-time-widget-directory>
+# or
+yarn add <your-time-widget-directory>
 ```
-## Использование
+
+## Usage
+
 ```js
 import React from 'react';
 import TimeWidget from 'your-time-widget';
 
 function App() {
-  return (
-    <div style={{ height: '100vh' }}>
-      <TimeWidget />
-    </div>
-  );
+    return (
+        <div style={{height: '100vh'}}>
+            <TimeWidget/>
+        </div>
+    );
 }
 ```
-Убедитесь, что стили подключены:
+
+Make sure to include the styles:
+
 ```ts
-import 'your-time-widget/dist/main.css';
+import '<your-time-widget-directory>/dist/main.css';
 ```
 
-## Пропсы
+## Props
+
 ```ts
 type TimeWidgetProps = {
     data: HistoricalData;
@@ -42,18 +47,26 @@ type HistoricalItem = {
     article: string;
 };
 ```
-## Локальная разработка
+
+## Local Development
+
 ```bash
 npm install
 npm start
 ```
-Проект будет доступен по адресу: http://localhost:3000
-## Сборка
+
+The project will be available at: http://localhost:3000
+
+## Build
+
 ```bash
 npm run build
 ```
-Файлы попадут в директорию dist/.
-## Структура
+
+Build files will be output to the ```dist/``` directory.
+
+## Project Structure
+
 ```bash
 src/
 ├── package-lock.json
@@ -97,11 +110,12 @@ src/
 ├── tsconfig.json
 └── webpack.config.js
 ```
-| Компонент        | Назначение                               |
-|------------------|------------------------------------------|
-| `TimeWidget`     | Главный компонент                        |
-| `Circle`         | Круговая интерактивная область           |
-| `Navigation`     | Навигация по категориям                  |
-| `Slider`         | Вертикальный слайдер с годовыми статьями |
-| `AnimatedButton` | Кнопка с анимацией выбора года           |
-| `YearsRange`     | Компонент, показывающий диапазон лет     |
+
+| Компонент        | Назначение                           |
+|------------------|--------------------------------------|
+| `TimeWidget`     | Main component                       |
+| `Circle`         | Interactive circular area            |
+| `Navigation`     | Category navigation                  |
+| `Slider`         | Vertical slider with yearly articles |
+| `AnimatedButton` | Animated button for year selection   |
+| `YearsRange`     | Displays the range of years          |
