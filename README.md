@@ -1,6 +1,6 @@
 # TimeWidget
 
-An interactive React component for displaying historical dates with circular navigation and a slider.
+An interactive React component for displaying historical dates with circular navigation, animation (gsap) and a slider (Swiper).
 
 ---
 
